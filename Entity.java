@@ -18,11 +18,11 @@ public class Entity{
 	protected int width, height;
 
 	public Entity(String type, int startX, int startY){
-		x = startX;
-		y = startY;
 		image = new ImageIcon(type+".png");
 		iconWidth = image.getIconWidth();
 		iconHeight = image.getIconHeight();
+		x = startX;
+		y = startY;
 	}
 
 	public Entity(int startX, int startY){
@@ -30,7 +30,7 @@ public class Entity{
 		y = startY;
 	}
 
-	public void draw(Graphics page, int leftX, int leftY){
+	public void draw(Graphics page, int leftX, int leftY, int cellSize){
 		/*if (attack = true){
 
 			attack = false;
@@ -38,10 +38,10 @@ public class Entity{
 		/*else{
 			super.draw(page);
 		}*/
-		int localX = x - leftX;
-		int localY = y - leftY;
-		System.out.print("x: " + localX + "\n");
-		System.out.print("y: " + localY + "\n");
+		int localX = x - leftX * cellSize;
+		int localY = y - leftY * cellSize;
+		//System.out.print("x: " + localX + "\n");
+		//System.out.print("y: " + localY + "\n");
 		page.drawImage(image.getImage(), (int)localX, (int)localY, null);
 	}
 	

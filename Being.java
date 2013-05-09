@@ -9,19 +9,25 @@ import java.io.*;
 public class Being extends Entity{
 	int health;
 	boolean isAttacking = false;
-	private int direction = 0;
+	protected int direction = 0;
 	private ImageIcon walking[] = new ImageIcon[4];
 	private ImageIcon attacking[];
 
-	public Being(String type, int startX, int startY, int h){
+	Being(String type, int startX, int startY, int h){
 		super(startX,startY);
-		 for (int i=0; i<4; i++) {
+		for (int i=0; i<4; i++) {
 			//blastingIcons[i] = new ImageIcon("ship"+i+"t.gif");
 			walking[i] = new ImageIcon(type + i + ".png");
+			/*if(type+i == "link1"){
+				System.out.print("here\n");
+				walking[i] = new ImageIcon("LinkRunShieldMoving.gif");
+			}*/
 		}
 		health = h;
 		iconWidth = walking[0].getIconWidth();
 		iconHeight = walking[0].getIconHeight();
+		//x = startX;
+		//y = startY;
 	}
 
 	public void draw(Graphics page, int leftX, int leftY){
@@ -32,11 +38,12 @@ public class Being extends Entity{
 		/*else{
 			super.draw(page);
 		}*/
-		int localX = x - leftX;
-		int localY = y - leftY;
+		int localX = x - leftX * 24;
+		int localY = y - leftY * 24;
+		//System.out.print("X: " + localX + " Y: " + localY + "\n");
 		//System.out.print("x: " + localX + "\n");
 		//System.out.print("y: " + localY + "\n");
-		page.drawImage(walking[direction].getImage(), (int)localX-iconWidth/2, (int)localY-iconHeight/2, null);
+		page.drawImage(walking[direction].getImage(), (int)localX, (int)localY, null);
 	}
  
 
@@ -90,6 +97,10 @@ public class Being extends Entity{
 		else
 			move();
 		return true;
+	}
+
+	public int getDirection(){
+		return direction;
 	}
 	/*public void attack(){
 		attack = true;
