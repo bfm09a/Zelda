@@ -6,14 +6,10 @@ import javax.swing.*;
 import java.util.*;
 import java.io.*;
 
-public class Entity{
+public class Entity{ //refers to any inanimate object
 	protected int x;
 	protected int y;
-	//private int dx;
-	//private int dy;
-	//private int direction;
 	private ImageIcon image;
-	//private ImageIcon attacking[];
 	protected int iconWidth, iconHeight;
 	protected int width, height;
 

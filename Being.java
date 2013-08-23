@@ -6,12 +6,13 @@ import javax.swing.*;
 import java.util.*;
 import java.io.*;
 
-public class Being extends Entity{
+public class Being extends Entity{//refers to anything that can move
 	int health;
 	boolean isAttacking = false;
 	protected int direction = 0;
 	private ImageIcon walking[] = new ImageIcon[4];
 	private ImageIcon attacking[];
+	long attackTime;
 
 	Being(String type, int startX, int startY, int h){
 		super(startX,startY);
@@ -45,16 +46,16 @@ public class Being extends Entity{
 		//System.out.print("y: " + localY + "\n");
 		page.drawImage(walking[direction].getImage(), (int)localX, (int)localY, null);
 	}
- 
+
 
 	public void move(){
 		if (direction == 0){
 			y -= 24;
 		}
-		else if (direction == 1){ 
+		else if (direction == 1){
 			x += 24;
 		}
-		else if (direction == 2){ 
+		else if (direction == 2){
 			y += 24;
 		}
 		else if(direction == 3){
@@ -62,7 +63,7 @@ public class Being extends Entity{
 		}
 	}
 
-	boolean north(){
+	public boolean north(){
 		if(direction != 0){
 			direction = 0;
 			return false;
@@ -71,7 +72,7 @@ public class Being extends Entity{
 			move();
 		return true;
 	}
-	boolean east(){
+	public boolean east(){
 		if(direction != 1){
 			direction = 1;
 			return false;
@@ -80,7 +81,7 @@ public class Being extends Entity{
 			move();
 		return true;
 	}
-	boolean south(){
+	public boolean south(){
 		if(direction != 2){
 			direction = 2;
 			return false;
@@ -89,7 +90,7 @@ public class Being extends Entity{
 			move();
 		return true;
 	}
-	boolean west(){
+	public boolean west(){
 		if(direction != 3){
 			direction = 3;
 			return false;
@@ -99,10 +100,26 @@ public class Being extends Entity{
 		return true;
 	}
 
+	public boolean isDead(){
+		return health <= 0;
+	}
+
+	public int getHealth(){
+		return health;
+	}
+
 	public int getDirection(){
 		return direction;
 	}
-	/*public void attack(){
-		attack = true;
-	}*/
+
+	public void setHealth(int num){
+		health += num;
+	}
+
+	public void attack(Being other){
+		if(other != null &&  new Date().getTime() - attackTime >= 500){
+			attackTime = new Date().getTime();
+			other.setHealth(-1);
+		}
+	}
 }
